@@ -1,0 +1,84 @@
+﻿@using ecpmmerceApp.Application.DTOs.Product
+@model IEnumerable<ProductResponse>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+<section class="py-5">
+    <div class="container px-4 px-lg-5 mt-5">
+        <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col mb-5">
+                    <div class="card h-100 shadow-sm border-light rounded">
+                        <!-- Product image-->
+                        <img class="card-img-top img-fluid" src="~/images/product/@item.Image" alt="@item.Name" style="width: 100%; height: 200px; object-fit: cover;" />
+                        <!-- Product details-->
+                        <div class="card-body p-4">
+                            <div class="text-center">
+                                <!-- Product name-->
+                                <h5 class="fw-bolder text-truncate" title="@item.Name">@item.Name</h5>
+                                <!-- Product price-->
+                                <p class="lead fw-normal text-muted">@item.Price.ToString("C")</p>
+                                <!-- Product category-->
+                                <p class="small text-muted">Category: @item.Category!.Name</p>
+                                <!-- Product end date-->
+                                <p class="small text-muted">Start Date: @item.StartDate.ToString("MMMM dd, yyyy")</p>
+                            </div>
+                        </div>
+                        <!-- Product actions-->
+                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                            <div class="text-center">
+                                <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#productModal" dataimg="@item.Image" data-name="@item.Name" data-price="@item.Price.ToString("C")" data-category="@item.Category.Name" data-enddate="@item.StartDate.ToString("MMMM dd, yyyy")" data-image="@item.Image">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Modal structure -->
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="text-center">
+                    <img id="modalProductImage" class="img-fluid" src="" alt="Product Image" style="width: 100%; height: 200px; object-fit: cover;" />
+                    <h5 id="modalProductName"></h5>
+                    <p id="modalProductPrice"></p>
+                    <p id="modalProductCategory"></p>
+                    <p id="modalProductEndDate"></p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Using JavaScript to populate the modal with product details
+    var productModal = document.getElementById('productModal');
+    productModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget; // Button that triggered the modal
+        var productName = button.getAttribute('data-name');
+        var productPrice = button.getAttribute('data-price');
+        var productCategory = button.getAttribute('data-category');
+        var productEndDate = button.getAttribute('data-enddate');
+        var productImage = button.getAttribute('data-image');
+
+        // Populate the modal with the product details
+        document.getElementById('modalProductName').textContent = productName;
+        document.getElementById('modalProductPrice').textContent = productPrice;
+        document.getElementById('modalProductCategory').textContent = 'Category: ' + productCategory;
+        document.getElementById('modalProductEndDate').textContent = 'End Date: ' + productEndDate;
+        document.getElementById('modalProductImage').src = "/images/product/" + productImage;
+    });
+</script>

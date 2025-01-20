@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "_LayoutAdmin"; // Assuming your layout is called _Layout.cshtml
+}
+
+<div class="container-fluid  d-flex flex-column p-3 m-4">
+
+    <!-- Welcome Section -->
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2 text-center">
+            <div class="card shadow-lg border-0 rounded-lg">
+                <div class="card-body">
+                    <h2 class="text-primary mb-4">Welcome to the Admin Dashboard</h2>
+                    <p class="lead">Hello, <strong>@User.Identity.Name</strong>! You're logged in as an administrator. Use the navigation on the sidebar to manage products, users, and more.</p>
+                    <hr />
+                    <h5 class="text-muted">Get started by exploring the sections below:</h5>
+                    <div class="row mt-4">
+                        <div class="col-12 col-md-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-box fa-3x text-primary"></i>
+                                    <h5 class="mt-2">Manage Products</h5>
+                                    <p>View and edit your product listings</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-users fa-3x text-primary"></i>
+                                    <h5 class="mt-2">Manage Users</h5>
+                                    <p>View and manage your users</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="card shadow-sm">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-cogs fa-3x text-primary"></i>
+                                    <h5 class="mt-2">Settings</h5>
+                                    <p>Adjust your system settings</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
