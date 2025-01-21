@@ -1,5 +1,6 @@
 ﻿using ecpmmerceApp.Application.DTOs.Category;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,5 +23,6 @@ namespace ecpmmerceApp.Application.DTOs.Product
 
         public CategoryResponse? Category { get; set; }
         public Guid Categoryid { get; set; }
+
     }
 }

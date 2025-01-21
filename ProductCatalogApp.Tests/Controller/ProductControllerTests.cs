@@ -25,18 +25,16 @@ namespace ProductCatalogApp.Tests.Controller
        private IProductService _productService;
         private ICategoryService _categoryService;
         private IWebHostEnvironment _webHostEnvironment;
-        private IMapper _mapper;
         private IAppLogger<ProductController> _appLogger;
         public ProductControllerTests()
         {
             _productService=A.Fake<IProductService>();
             _categoryService=A.Fake<ICategoryService>();
-            _mapper=A.Fake<IMapper>();
             _appLogger=A.Fake<IAppLogger<ProductController>>();
             _webHostEnvironment=A.Fake<IWebHostEnvironment>();
 
             
-            _productcontroller=new ProductController(_productService,_webHostEnvironment,_mapper,_appLogger, _categoryService);
+            _productcontroller=new ProductController(_productService,_webHostEnvironment,_appLogger, _categoryService);
         }
         [Fact]
         public void ProductController_Index_ReturnSuccess()

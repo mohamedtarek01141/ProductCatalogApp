@@ -4,30 +4,40 @@
 @{
     ViewData["Title"] = "Home Page";
 }
+<div class="container mt-5">
+    <form class="d-flex align-items-center gap-2" method="get" action="@Url.Action("Index", "Home")">
+        <input class="form-control rounded-pill shadow-sm" type="search" name="searchQuery" placeholder="Search here..." aria-label="Search">
+        <select class="form-select rounded-pill shadow-sm" name="categoryFilter" aria-label="Category Filter">
+            <option value="">All Categories</option>
+            @foreach (var category in ViewBag.Categories)
+            {
+                <option value="@category.Id">@category.Name</option>
+            }
+        </select>
+        <button class="btn btn-primary rounded-pill px-4 shadow-sm" type="submit">Go</button>
+    </form>
+</div>
+
+
 <section class="py-5">
     <div class="container px-4 px-lg-5 mt-5">
         <div class="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 justify-content-center">
             @foreach (var item in Model)
             {
                 <div class="col mb-5">
-                    <div class="card h-100 shadow-sm border-light rounded">
+                    <div class="card h-80 shadow-sm border-light rounded">
                         <!-- Product image-->
-                        <img class="card-img-top img-fluid" src="~/images/product/@item.Image" alt="@item.Name" style="width: 100%; height: 200px; object-fit: cover;" />
+                        <img class="card-img-top img-fluid" src="~/images/product/@item.Image" alt="@item.Name" style="width: 100%; height: 9.375rem; object-fit: cover;" />
                         <!-- Product details-->
-                        <div class="card-body p-4">
+                        <div class="card-body ">
                             <div class="text-center">
-                                <!-- Product name-->
                                 <h5 class="fw-bolder text-truncate" title="@item.Name">@item.Name</h5>
-                                <!-- Product price-->
                                 <p class="lead fw-normal text-muted">@item.Price.ToString("C")</p>
-                                <!-- Product category-->
                                 <p class="small text-muted">Category: @item.Category!.Name</p>
-                                <!-- Product end date-->
                                 <p class="small text-muted">Start Date: @item.StartDate.ToString("MMMM dd, yyyy")</p>
                             </div>
                         </div>
-                        <!-- Product actions-->
-                        <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                        <div class="card-footer p-2 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
                                 <button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#productModal" dataimg="@item.Image" data-name="@item.Name" data-price="@item.Price.ToString("C")" data-category="@item.Category.Name" data-enddate="@item.StartDate.ToString("MMMM dd, yyyy")" data-image="@item.Image">View Details</button>
                             </div>

@@ -8,7 +8,7 @@ using ecpmmerceApp.Infrastructure.Data;
 
 #nullable disable
 
-namespace ecpmmerceApp.Infrastructure.Migrations
+namespace ProductCatalogApp.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -51,13 +51,13 @@ namespace ecpmmerceApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ba3963bc-0baf-4a39-82d4-a54a05ebcb4c",
+                            Id = "c200e7a2-1d59-4a91-9c30-c5067b372503",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "be566690-13d4-40eb-b359-8509b825fc02",
+                            Id = "af5eed84-d99f-4402-8e5c-e19675547f1e",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -255,6 +255,23 @@ namespace ecpmmerceApp.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d3f05b0a-955c-45c0-9860-a4a36a556b09"),
+                            Name = "Electronics"
+                        },
+                        new
+                        {
+                            Id = new Guid("90acde1e-da26-4de7-8e5a-3f09d41d1bcb"),
+                            Name = "Furniture"
+                        },
+                        new
+                        {
+                            Id = new Guid("3d10a632-8edc-479e-a55a-9edc5c3ec4a5"),
+                            Name = "Clothing"
+                        });
                 });
 
             modelBuilder.Entity("ecpmmerceApp.Domain.Entities.Product", b =>

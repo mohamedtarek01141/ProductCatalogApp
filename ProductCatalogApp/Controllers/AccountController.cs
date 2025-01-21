@@ -2,7 +2,7 @@
 using ecpmmerceApp.Application.Services.AuthenticationService;
 using ecpmmerceApp.Domain.Interface.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using ProductCatalogApp.Models;
+
 
 namespace ProductCatalogApp.Controllers
 {
@@ -16,7 +16,6 @@ namespace ProductCatalogApp.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginUser loginUser)
     {
-        // Process login form submission (POST)
         if (ModelState.IsValid)
         {
                 var result = await authenticationService.LoginUser(loginUser);
@@ -62,7 +61,7 @@ namespace ProductCatalogApp.Controllers
                 var result = await authenticationService.CreateUser(user);
                 if (result.Success)
                 {
-                    return RedirectToAction("LoginUser");
+                    return RedirectToAction("Login");
                 }
                 else
                 {

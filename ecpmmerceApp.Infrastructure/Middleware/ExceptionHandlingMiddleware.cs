@@ -46,6 +46,8 @@ namespace ecpmmerceApp.Infrastructure.Middleware
 
                             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                             await context.Response.WriteAsync("AnError Equire");
+                            context.Response.Redirect("/Error/Index");
+
                             break;
                     }
 
@@ -54,12 +56,20 @@ namespace ecpmmerceApp.Infrastructure.Middleware
                 {
                     context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                     await context.Response.WriteAsync("AnError Equire");
+                    context.Response.Redirect("/Error/Index");
+
                 }
             }
             catch(Exception ex)
             {
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
                 await context.Response.WriteAsync("AnError Equire");
+                context.Response.Redirect("/Error/Index");
+
+            }
+            finally
+            {
+                context.Response.Redirect("/Error/Index");
 
             }
         }

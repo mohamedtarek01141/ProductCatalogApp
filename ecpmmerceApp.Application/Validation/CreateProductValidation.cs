@@ -20,7 +20,7 @@ namespace ecpmmerceApp.Application.Validation
 
 
             RuleFor(p => p.StartDate)
-                .GreaterThan(DateTime.UtcNow).WithMessage("Start date must be in the future.");
+                .GreaterThanOrEqualTo(DateTime.Now.AddDays(-1)).WithMessage("Start date must be in the future.");
 
             RuleFor(p => p.Duration)
                 .GreaterThan(0).WithMessage("Duration must be greater than zero.");
@@ -32,10 +32,13 @@ namespace ecpmmerceApp.Application.Validation
         RuleFor(p => p.Categoryid)
                 .NotEmpty()
                 .WithMessage("Category ID is required.");
-            RuleFor(p => p.ImagePath)
-            .NotNull().WithMessage("Image is required.")
-            .Must(IsValidImageFile).WithMessage("Image must be a JPG, JPEG, or PNG file.")
-            .Must(IsValidImageSize).WithMessage("Image size must not exceed 1MB.");
+            When(p => string.IsNullOrEmpty(p.Image), () =>
+            {
+                RuleFor(p => p.ImagePath)
+                    .NotNull().WithMessage("ImagePath is required.")
+                    .Must(IsValidImageFile).WithMessage("ImagePath must be a JPG, JPEG, or PNG file.")
+                    .Must(IsValidImageSize).WithMessage("ImagePath size must not exceed 1MB.");
+            });
         }
 
         private bool IsValidImageFile(IFormFile? imageFile)

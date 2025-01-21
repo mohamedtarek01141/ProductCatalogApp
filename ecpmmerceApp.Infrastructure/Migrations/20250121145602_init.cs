@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
 
-namespace ecpmmerceApp.Infrastructure.Migrations
+namespace ProductCatalogApp.Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration
@@ -202,8 +202,18 @@ namespace ecpmmerceApp.Infrastructure.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { "ba3963bc-0baf-4a39-82d4-a54a05ebcb4c", null, "Admin", "ADMIN" },
-                    { "be566690-13d4-40eb-b359-8509b825fc02", null, "User", "USER" }
+                    { "af5eed84-d99f-4402-8e5c-e19675547f1e", null, "User", "USER" },
+                    { "c200e7a2-1d59-4a91-9c30-c5067b372503", null, "Admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("3d10a632-8edc-479e-a55a-9edc5c3ec4a5"), "Clothing" },
+                    { new Guid("90acde1e-da26-4de7-8e5a-3f09d41d1bcb"), "Furniture" },
+                    { new Guid("d3f05b0a-955c-45c0-9860-a4a36a556b09"), "Electronics" }
                 });
 
             migrationBuilder.CreateIndex(

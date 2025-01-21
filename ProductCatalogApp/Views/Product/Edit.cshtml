@@ -5,14 +5,30 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
+<h1>Edit Product</h1>
 
-<h4>Product</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Display current product image -->
+            <div class="form-group text-center">
+                <img src="~/images/product/@Model.Image"  alt="Product Image" width="150" height="150" class="img-thumbnail mb-2" />
+                <button type="button" class="btn btn-warning btn-sm" onclick="toggleEditImage()">Edit Image</button>
+            </div>
+            <input type="hidden" asp-for="Image"  />
+
+
+            <!-- Image input field (hidden by default, toggled with JavaScript) -->
+            <div id="editImageSection" class="form-group" style="display: none;">
+                <label asp-for="ImagePath" class="control-label">Upload New Image</label>
+                <input type="file" asp-for="ImagePath" class="form-control" />
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+
+            <!-- Other product fields -->
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -24,27 +40,34 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
+            <div class="mb-3">
+                <label asp-for="Categoryid" class="form-label fw-semibold">Category</label>
+                <select asp-for="Categoryid" class="form-select" asp-items="ViewBag.Categories">
+                    <option value="" disabled selected>Select a category</option>
+                </select>
+                <span asp-validation-for="Categoryid" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <label asp-for="Duration" class="control-label"></label>
                 <input asp-for="Duration" class="form-control" />
                 <span asp-validation-for="Duration" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="StartDate" class="control-label"></label>
                 <input type="date" asp-for="StartDate" class="form-control" />
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
+
             <div class="form-group">
                 <label asp-for="Categoryid" class="control-label"></label>
-                <input asp-for="Categoryid" class="form-control">
+                <input asp-for="Categoryid" class="form-control" />
             </div>
+
+            <!-- Submit button -->
             <div class="form-group">
-                <label asp-for="ImagePath" class="control-label"></label>
-                <input type="file" asp-for="ImagePath" class="form-control" />
-                <span asp-validation-for="ImagePath" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -55,6 +78,13 @@
 </div>
 
 @section Scripts {
+    <script>
+        // JavaScript function to toggle the visibility of the image upload section
+        function toggleEditImage() {
+            const editImageSection = document.getElementById('editImageSection');
+            editImageSection.style.display = editImageSection.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }

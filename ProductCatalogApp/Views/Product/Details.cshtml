@@ -11,6 +11,12 @@
     <h4>Product</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Name)
         </dt>
@@ -47,23 +53,21 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.StartDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoryid)
+        <dt class="col-sm-2">
+             Category Name
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Category.Id)
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Category!.Name)
         </dd>
     </dl>
-    <td>
         @if (!string.IsNullOrEmpty(Model.Image))
         {
-            <img src="~/images/product/@Model.Image" alt="Product Image" width="50" height="50" />
+            <img src="~/images/product/@Model.Image" alt="Product Image" width="150" height="150" />
         }
         else
         {
             <span>No image</span>
         }
-    </td>
 </div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |

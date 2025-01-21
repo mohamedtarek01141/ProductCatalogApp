@@ -13,6 +13,5 @@ namespace ecpmmerceApp.Application.Services.AuthenticationService
         Task<ServiceResponse> LoginUser(LoginUser loginUser);
         Task<ServiceResponse> CreateUser(CreateUser createUser);
         Task LogOut();
-     //   Task<LoginResponse> ReviveToken(string refeshToken);
     }
 }
