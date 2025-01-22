@@ -67,11 +67,6 @@ namespace ecpmmerceApp.Infrastructure.Middleware
                 context.Response.Redirect("/Error/Index");
 
             }
-            finally
-            {
-                context.Response.Redirect("/Error/Index");
-
-            }
         }
         
     }
