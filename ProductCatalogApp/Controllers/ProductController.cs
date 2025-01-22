@@ -121,8 +121,11 @@ namespace ProductCatalogApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(ProductResponse product)
         {
+            var categories= await categoryService.getAll();
+
             if (!ModelState.IsValid)
             {
+                ViewBag.Categories = new SelectList(categories, "Id", "Name");
                 return View(product);
             }
 
@@ -146,9 +149,9 @@ namespace ProductCatalogApp.Controllers
             }
             foreach (var err in res.Errors)
             {
-                ModelState.AddModelError(string.Empty, err);
+                ModelState.AddModelError("", err);
             }
-
+            ViewBag.Categories = new SelectList(categories, "Id", "Name");
             return View(product);
         }
         [HttpGet]

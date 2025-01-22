@@ -48,7 +48,8 @@ namespace ecpmmerceApp.Infrastructure.Repositories
         public async Task<IEnumerable<Product>> GetActiveProductsAsync()
         {
             return await context.Set<Product>().Where(product => 
-                                                 product.StartDate.AddDays((double)product.Duration!) >= DateTime.Now)
+                                                 product.StartDate.AddDays((double)product.Duration!) >= DateTime.Now &&
+                                                 product.StartDate<=DateTime.Now)
                                .OrderBy(product => product.StartDate).Include(p => p.Category).ToListAsync();
         }
     }
