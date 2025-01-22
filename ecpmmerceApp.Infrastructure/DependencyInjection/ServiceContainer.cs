@@ -56,35 +56,12 @@ namespace ecpmmerceApp.Infrastructure.DependencyInjection
             services.AddAuthentication()
     .AddCookie(options =>
     {
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Adjust as needed
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); 
         options.LoginPath = "/Account/Login";
     });
 
-            //services.AddAuthentication(
-
-            //    Options =>
-            //    {
-            //        Options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        Options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-            //        Options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            //    }).AddJwtBearer(options =>
-            //    {
-            //        options.SaveToken=true;
-            //        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
-            //        {
-            //            ValidateIssuer = true,
-            //            ValidateAudience = true,
-            //            ValidateLifetime = true,
-            //            RequireExpirationTime = true,
-            //            ValidateIssuerSigningKey = true,
-            //            ValidIssuer = config["JWT:Issure"], 
-            //            ValidAudience = config["JWT:Audience"],
-            //            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["JWT:Key"]!))
-            //        };
-
-            //    });
+            
             services.AddScoped<IUserManagment, UserManagment>();
-          //  services.AddScoped<ITokenManagment, TokenManagment>();
             services.AddScoped<IRoleManagment, RoleManagment>();
             return services;
         }

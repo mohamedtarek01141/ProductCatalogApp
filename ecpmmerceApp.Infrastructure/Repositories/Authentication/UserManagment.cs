@@ -23,14 +23,11 @@ namespace ecpmmerceApp.Infrastructure.Repositories.Authentication
        var existingUser = await GetUserByEmail(user.Email!);
     if (existingUser != null)
     {
-        // User already exists
         return (false, new List<string> { "Email is Already Exist" });
     }
 
-    // Attempt to create the user
     var result = await userManager.CreateAsync(user, user.PasswordHash!);
 
-    // Log errors if creation fails
     if (!result.Succeeded)
     {
                 var errors = result.Errors.Select(e => e.Description).ToList();
@@ -43,7 +40,7 @@ namespace ecpmmerceApp.Infrastructure.Repositories.Authentication
         public async Task<int> DeleteUserByEmail(string email)
         {
             var _user=await GetUserByEmail(email);
-            if (_user != null)
+            if (_user == null)
             {
                 return -1;
             }
