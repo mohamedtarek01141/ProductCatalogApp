@@ -1,32 +1,27 @@
 ﻿using AutoMapper;
 using ecpmmerceApp.Application.DTOs;
 using ecpmmerceApp.Application.DTOs.Product;
-using ecpmmerceApp.Application.DTOs.User;
 using ecpmmerceApp.Application.Services.Validation;
-using ecpmmerceApp.Application.Validation;
 using ecpmmerceApp.Domain.Entities;
 using ecpmmerceApp.Domain.Interface;
+using ecpmmerceApp.Infrastructure.Interfaces;
 using FluentValidation;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using ecpmmerceApp.Infrastructure.Interfaces;
 
 namespace ecpmmerceApp.Application.Services
 {
-    public class ProductService(IProductRepository _Product,IMapper mapper,IValidator<ProductRequest> createproductvalidation
-        ,IValidateProduct validateProduct) : IProductService
+    public class ProductService(IProductRepository _Product, IMapper mapper, IValidator<ProductRequest> createproductvalidation
+        , IValidateProduct validateProduct, IImageService imageService) : IProductService
     {
 
         public async Task<ServiceResponse> add(ProductRequest product)
         {
-            var validateRes = await validateProduct.ValidateProductAsync(product,createproductvalidation);
+            var validateRes = await validateProduct.ValidateProductAsync(product, createproductvalidation);
             if (!validateRes.Success)
                 return new ServiceResponse { Errors = validateRes.Errors };
-            var MappedData=mapper.Map<Product>(product);
-            var result =await _Product.AddAsync(MappedData);
+            product.Image = await imageService.SaveImage(product.ImagePath!);
+            var MappedData = mapper.Map<Product>(product);
+            var result = await _Product.AddAsync(MappedData);
             if (result > 0)
                 return new ServiceResponse(true, "Product Added Successfully");
             else
@@ -36,6 +31,10 @@ namespace ecpmmerceApp.Application.Services
 
         public async Task<ServiceResponse> delete(Guid id)
         {
+            var product = await _Product.GetByIdAsync(id);
+            if (product == null)
+                return new ServiceResponse(false, "Product Not Found");
+            await imageService.DeleteImage(product.Image!);
             var result = await _Product.DeleteAsync(id);
             return result > 0 ? new ServiceResponse(true, "Product Deleted Successfully") :
                 new ServiceResponse(false, "Product Failed To delete");
@@ -46,7 +45,7 @@ namespace ecpmmerceApp.Application.Services
             var products = await _Product.GetAllAsync();
             if (!products.Any())
                 return [];
-            return mapper.Map<IEnumerable< ProductResponse>>(products);
+            return mapper.Map<IEnumerable<ProductResponse>>(products);
         }
         public async Task<IEnumerable<ProductResponse>> getActiveProducts()
         {
@@ -58,22 +57,32 @@ namespace ecpmmerceApp.Application.Services
 
         public async Task<ProductResponse?> getByID(Guid id)
         {
-            var product= await _Product.GetByIdAsync(id);
+            var product = await _Product.GetByIdAsync(id);
             if (product == null) return null;
             return mapper.Map<ProductResponse>(product);
         }
 
-        public async Task<ServiceResponse> update( ProductResponse product)
+        public async Task<ServiceResponse> update(ProductResponse product)
         {
+            var ep = await getByID(product.Id);
+            if (ep == null)
+                return new ServiceResponse(false, "Product Not Found");
             var MappedData = mapper.Map<ProductRequest>(product);
 
             var validateRes = await validateProduct.ValidateProductAsync(MappedData, createproductvalidation);
             if (!validateRes.Success)
                 return new ServiceResponse { Errors = validateRes.Errors };
-           var MappedData2 = mapper.Map<Product>(product);
+            if (MappedData.ImagePath != null)
+            {
+                await imageService.DeleteImage(ep.Image!);
+
+                product.Image = await imageService.SaveImage(MappedData.ImagePath);
+            }
+
+            var MappedData2 = mapper.Map<Product>(product);
 
             var result = await _Product.UpdateAsync(MappedData2);
-            return result>0? new ServiceResponse(true, "Product Updated")
+            return result > 0 ? new ServiceResponse(true, "Product Updated")
                 : new ServiceResponse(false, "Product failed to Update", new List<string> { "Product failed to Update" });
         }
     }

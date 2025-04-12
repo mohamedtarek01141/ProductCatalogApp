@@ -28,6 +28,11 @@ using ecpmmerceApp.Domain.Interface.Authentication;
 using ecpmmerceApp.Infrastructure.Repositories.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using ecpmmerceApp.Infrastructure.Interfaces;
+using ProductCatalogApp.Infrastructure.Services;
+using ProductCatalogApp.Domain.Interface.Cart;
+using ProductCatalogApp.Infrastructure.Repositories.cart;
+using ecommercApp.Application.Services.Cart;
 
 namespace ecpmmerceApp.Infrastructure.DependencyInjection
 {
@@ -38,8 +43,12 @@ namespace ecpmmerceApp.Infrastructure.DependencyInjection
             services.AddDbContext<ApplicationDbContext>(options =>
             options.UseSqlServer(config.GetConnectionString("DEV")));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IImageService, ImageService>();
             services.AddScoped<IProductRepository, ProductRepository>();
            services.AddScoped(typeof(IAppLogger<>),typeof(SerilogLoggerAdapter<>));
+            services.AddScoped<IPaymentMethod, PaymentmethodRepository>();
+            services.AddScoped<IPaymentService, StripePaymentMethod>();
+            services.AddScoped<Icart, CartRepository>();
             services.AddIdentity<AppUser, IdentityRole>(
                 options =>
                 {
@@ -63,6 +72,8 @@ namespace ecpmmerceApp.Infrastructure.DependencyInjection
             
             services.AddScoped<IUserManagment, UserManagment>();
             services.AddScoped<IRoleManagment, RoleManagment>();
+            Stripe.StripeConfiguration.ApiKey = config["Stripe:SecretKey"];
+
             return services;
         }
         public static IApplicationBuilder UseInfrastructureServices(this IApplicationBuilder applicationBuilder)

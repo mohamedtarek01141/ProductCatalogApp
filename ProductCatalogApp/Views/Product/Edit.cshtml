@@ -40,14 +40,7 @@
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
             </div>
-            <div class="mb-3">
-                <label asp-for="Categoryid" class="form-label fw-semibold">Category</label>
-                <select asp-for="Categoryid" class="form-select" asp-items="ViewBag.Categories">
-                    <option value="" disabled selected>Select a category</option>
-                </select>
-                <span asp-validation-for="Categoryid" class="text-danger"></span>
-            </div>
-
+           
             <div class="form-group">
                 <label asp-for="Duration" class="control-label"></label>
                 <input asp-for="Duration" class="form-control" />
@@ -60,10 +53,7 @@
                 <span asp-validation-for="StartDate" class="text-danger"></span>
             </div>
 
-            <div class="form-group">
-                <label asp-for="Categoryid" class="control-label"></label>
-                <input asp-for="Categoryid" class="form-control" />
-            </div>
+         
 
             <!-- Submit button -->
             <div class="form-group">

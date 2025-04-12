@@ -51,13 +51,13 @@ namespace ProductCatalogApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "c200e7a2-1d59-4a91-9c30-c5067b372503",
+                            Id = "0722e050-7b0f-4a1e-a1b9-a3555b4cba17",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "af5eed84-d99f-4402-8e5c-e19675547f1e",
+                            Id = "351b60e6-85ae-4898-8bf2-9e488eb18570",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -259,17 +259,17 @@ namespace ProductCatalogApp.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("d3f05b0a-955c-45c0-9860-a4a36a556b09"),
+                            Id = new Guid("1a1de6b8-9073-431b-9f79-18a0763f8434"),
                             Name = "Electronics"
                         },
                         new
                         {
-                            Id = new Guid("90acde1e-da26-4de7-8e5a-3f09d41d1bcb"),
+                            Id = new Guid("4084c486-0d2b-4510-8db7-926f9f023abf"),
                             Name = "Furniture"
                         },
                         new
                         {
-                            Id = new Guid("3d10a632-8edc-479e-a55a-9edc5c3ec4a5"),
+                            Id = new Guid("08a4d6b6-1ec9-4cc0-82b5-069d53d8d0be"),
                             Name = "Clothing"
                         });
                 });

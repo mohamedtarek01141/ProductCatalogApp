@@ -14,10 +14,18 @@ namespace ecpmmerceApp.Infrastructure.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
-
+        public DbSet<PaymentMethod> PaymentMethods { get; set; }
+        public DbSet<ArchivePayment> ArchivePayments { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PaymentMethod>().HasData(
+               new PaymentMethod
+               {
+                   Id = Guid.NewGuid(),
+                   Name = "Credit-Card",
+               }
+            );
             modelBuilder.Entity<IdentityRole>().HasData(
                 new IdentityRole
             {

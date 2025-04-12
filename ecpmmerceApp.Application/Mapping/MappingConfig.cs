@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using ecommercApp.Application.DTOs.cart;
+using ecommercApp.Application.DTOs.Payment;
 using ecpmmerceApp.Application.DTOs.Category;
 using ecpmmerceApp.Application.DTOs.Product;
 using ecpmmerceApp.Application.DTOs.User;
@@ -28,7 +30,8 @@ namespace ecpmmerceApp.Application.Mapping
 
             CreateMap<LoginUser, AppUser>();
             CreateMap<CreateUser, AppUser>();
-
+            CreateMap<PaymentMethod, PaymentMethodResponse>();
+            CreateMap<CreateArchive, ArchivePayment>();
         }
     }
 }

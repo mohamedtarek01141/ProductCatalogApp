@@ -1,4 +1,6 @@
-﻿using ecpmmerceApp.Application.Mapping;
+﻿using ecommercApp.Application.Services.Cart.Archive;
+using ecommercApp.Application.Services.Cart;
+using ecpmmerceApp.Application.Mapping;
 using ecpmmerceApp.Application.Services;
 using ecpmmerceApp.Application.Services.Authentication;
 using ecpmmerceApp.Application.Services.AuthenticationService;
@@ -30,6 +32,8 @@ namespace ecpmmerceApp.Application.DependincyInjection
             services.AddScoped<IValidateUser, ValidateUser>();
             services.AddScoped<IValidateProduct, ValidateProduct>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<IPaymentMethodService, PaymentMethodService>();
             return services;
 
         }
